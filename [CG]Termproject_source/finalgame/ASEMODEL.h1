@@ -1,0 +1,70 @@
+
+
+#pragma once
+#include <stdlib.h>
+#include <gl/glut.h>
+#include <stdio.h>
+#include <gl/glaux.h>
+#include <string.h>
+#include <list>
+
+class CASEMODEL
+{
+	typedef struct _VERTEX{
+	GLfloat v[4];
+	//float x;
+	//float  y;
+	//float  z;
+}VERTEX,*PVERTEX;
+
+typedef struct _NORMAL{
+	float x;
+	float  y;
+	float  z;
+}NORMAL,*PNORMAL;
+
+typedef struct _FACE{
+
+	//VERTEX v[3];
+//	VERTEX n[3];
+	GLfloat v[3][3];
+	GLfloat n[3][3];
+
+	int vertexnum[3];
+
+}FACE, *PFACE;
+
+typedef struct _OBJECT{
+
+	
+	int vertexNUM,faceNUM;
+	PFACE face;
+	PVERTEX v;
+	PVERTEX n;
+
+
+}OBJECT, *POBJECT;
+
+public:
+	CASEMODEL(char* filename);
+	CASEMODEL(void);
+
+	~CASEMODEL(void);
+	
+	void drawASE();
+	
+
+private:
+	void loadASE(char* filename);
+	void textureinit(void);
+
+	GLfloat mat_amb[4];	// 주변광에 대한 반사값
+	GLfloat mat_dif[4];	// 분산광에 대한 반사값
+	GLfloat mat_spc[4];	// 반사광에 대한 반사값
+	wchar_t bitmap[100];
+	unsigned int ids[2];
+	AUX_RGBImageRec *tex[2];
+	std::list<OBJECT> objlist;
+
+};
+
